@@ -1,28 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { quizData } from "../data/questions";
 
 const Result = () => {
   const navigate = useNavigate();
 
+  // Get Score
+  const score =
+    localStorage.getItem("score") || 0;
+
+  // Get Answers
+  const answers = JSON.parse(
+    localStorage.getItem("answers")
+  ) || [];
+
+  // Show / Hide Answers
   const [showAnswers, setShowAnswers] =
     useState(false);
-
-  const score = localStorage.getItem("score");
-
-  const category =
-    localStorage.getItem("category");
-
-  const questions = quizData[category];
 
   return (
     <div className="container">
       <h1>🎉 Quiz Completed</h1>
 
+      {/* Score */}
       <div className="score">
         Your Score: {score} / 10
       </div>
 
+      {/* Buttons */}
       <div className="result-buttons">
         <button onClick={() => navigate("/")}>
           🏠 Home
@@ -33,29 +37,61 @@ const Result = () => {
             setShowAnswers(!showAnswers)
           }
         >
-          📖 {showAnswers
-            ? "Hide Answers"
-            : "Show Answers"}
+          {showAnswers
+            ? "❌ Hide Answers"
+            : "📖 Show Answers"}
         </button>
       </div>
 
+      {/* Answer Review */}
       {showAnswers && (
         <div className="answers-container">
-          {questions.map((q, index) => (
-            <div
-              key={index}
-              className="answer-card"
-            >
-              <h3>
-                Q{index + 1}. {q.question}
-              </h3>
+          {answers.map((item, index) => {
+            const isCorrect =
+              item.selected === item.correct;
 
-              <p>
-                ✅ Correct Answer:
-                <span> {q.answer}</span>
-              </p>
-            </div>
-          ))}
+            return (
+              <div
+                key={index}
+                className="answer-card"
+              >
+                {/* Question */}
+                <h3>
+                  Q{index + 1}. {item.question}
+                </h3>
+
+                {/* Selected Answer */}
+                <p>
+                  Your Answer:
+                  <span
+                    style={{
+                      color: isCorrect
+                        ? "green"
+                        : "red",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {" "}
+                    {item.selected}
+                  </span>
+                </p>
+
+                {/* Correct Answer */}
+                <p>
+                  Correct Answer:
+                  <span
+                    style={{
+                      color: "green",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {" "}
+                    {item.correct}
+                  </span>
+                </p>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

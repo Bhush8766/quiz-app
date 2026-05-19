@@ -223,3 +223,82 @@ select:focus {
   color: #16a34a;
   font-weight: bold;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* DARK MODE */
+
+body.dark {
+  background: linear-gradient(
+    to right,
+    #111827,
+    #1f2937
+  );
+}
+
+body.dark .container {
+  background: #1f2937;
+  color: white;
+  border: 1px solid #374151;
+}
+
+body.dark .card h2 {
+  color: white;
+}
+
+body.dark select {
+  background: #374151;
+  color: white;
+  border: 2px solid #4b5563;
+}
+
+body.dark .answer-card {
+  background: #374151;
+}
+
+body.dark .answer-card h3,
+body.dark .answer-card p {
+  color: white;
+}
+
+.theme-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.theme-toggle button {
+  padding: 10px 15px;
+  font-size: 14px;
+}
+
+
+
+
+
+
+
+/* Correct Answer */
+
+.correct {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+/* Wrong Answer */
+
+.wrong {
+  color: #dc2626;
+  font-weight: bold;
+}
